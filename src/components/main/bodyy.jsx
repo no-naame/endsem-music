@@ -6,7 +6,7 @@ export function Bodyy() {
   const { trending, top20, top50, evergreen, happy, romantic, excited, sad } = useContext(ContextVar);
 
   return (
-      <div className="bg-custom-gradient min-h-screen">
+      <div className="min-h-screen" style={{backgroundImage: "url('https://arc.net/noise-light.png') ,linear-gradient(135deg, #D4145A, #FBB03B)"}}>
         <main className="px-4 py-6">
           <section className="mb-10 ml-20">
             <h2 className="text-xl font-semibold text-white mb-4">Trending songs</h2>

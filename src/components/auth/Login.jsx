@@ -2,40 +2,28 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
+import {useAuth} from "@/components/context/AuthContext.jsx";
 
 export default function LogIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
+    const { handleLogin } = useAuth();
 
-    const handleLogin = async (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://academics.newtonschool.co/api/v1/user/login', {
-                email,
-                password,
-                appType: "music"
-            }, {
-                headers: {
-                    'accept': 'application/json',
-                    'projectID': 'bng7dtu7whwk',
-                    'Content-Type': 'application/json'
-                }
-            });
-            console.log(response.data);
+            await handleLogin(email, password);
         } catch (err) {
-            console.error(err);
-            setError("Login failed. Please try again.");
+            setError("Log-In failed. Please try again.");
         }
     };
-
     return (
-        <div className="min-h-screen bg-gradient-to-r from-purple-500 to-pink-500 flex justify-center items-center p-4">
+        <div className="min-h-screen bg-gradient-to-r from-purple-500 to-pink-500 flex justify-center items-center p-4" style={{backgroundImage: "url('https://arc.net/noise-light.png') ,linear-gradient(to right, var(--tw-gradient-stops))"}}>
             <div className="w-full max-w-md bg-black bg-opacity-25 rounded-xl p-8">
                 <h1 className="text-white font-bold text-4xl mb-1">Musica</h1>
                 <h2 className="text-white text-3xl font-semibold mb-4">Log In</h2>
-                <form onSubmit={handleLogin}>
+                <form onSubmit={onSubmit}>
                     <Input
                         className="mb-4 bg-white"
                         id="email"

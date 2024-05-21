@@ -10,6 +10,7 @@ import './index.css';
 import MusicContext from "@/components/context/MusicContext.jsx";
 import { NextUIProvider } from '@nextui-org/react';
 import { AuthProvider } from "@/components/context/AuthContext";
+import SongDiv from "@/components/main/songDiv.jsx";
 
 const appRouter = createBrowserRouter([
     {
@@ -19,10 +20,11 @@ const appRouter = createBrowserRouter([
             { path: "/", element: <Bodyy /> },
             { path: "/signup", element: <SignUp /> },
             { path: "/login", element: <LogIn /> },
+            {path:"/song/:songId",element:<SongDiv />}
         ],
     },
 ]);
-
+export default appRouter;
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <NextUIProvider>

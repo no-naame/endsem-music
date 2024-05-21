@@ -1,20 +1,13 @@
-import { Card, CardBody, Button, Image } from "@nextui-org/react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "@/components/context/AuthContext";
-
-export const MusicPlayer = ({ className, image, name, artist, ...otherProps }) => {
+import {Card, CardBody, Button, Image, Progress} from "@nextui-org/react";
+import {useState, FC, useEffect} from "react";
+import {clsx} from "@nextui-org/shared-utils";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import {Link} from "react-router-dom"
+import * as React from "react";
+import {useAuth} from "@/components/context/AuthContext.jsx";
+export const MusicPlayer= ({className,image,name,artist,id, ...otherProps}) => {
     const [liked, setLiked] = useState(false);
-    const { user } = useAuth();
-    const navigate = useNavigate();
-
-    const handlePlayClick = () => {
-        if (!user) {
-            navigate('/login');
-        } else {
-            // Handle play functionality
-        }
-    };
+    const {isLoggedIn} = useAuth()
 
     return (
         <Card
@@ -29,11 +22,14 @@ export const MusicPlayer = ({ className, image, name, artist, ...otherProps }) =
                         <Image
                             alt="Album cover"
                             className="object-cover mb-5"
-                            classNames={{ base: "shadow-black/20" }}
+                            classNames={{
+                                base: "shadow-black/20",
+                            }}
                             height="90%"
                             shadow="lg"
                             src={image}
                             width="100%"
+
                         />
                         <div className="flex justify-between">
                             <div className="flex flex-col gap-0">
@@ -41,18 +37,13 @@ export const MusicPlayer = ({ className, image, name, artist, ...otherProps }) =
                                 <p className="text-sm text-foreground/80">{artist}</p>
                             </div>
                             <div className="flex w-full items-center justify-center">
-                                <Button
-                                    isIconOnly
-                                    className="w-auto h-auto data-[hover]:bg-foreground/10"
-                                    radius="full"
-                                    variant="light"
-                                    onClick={handlePlayClick}
-                                >
-                                    <PlayIcon size={54} />
-                                </Button>
+                                <Link to={isLoggedIn ? `/song/${id}` : "/signup"}>
+                                    <PlayIcon size={54}/>
+                                </Link>
                             </div>
                         </div>
                     </div>
+
                     <div className="flex justify-between items-start top-0">
                         <Button
                             isIconOnly
@@ -67,6 +58,7 @@ export const MusicPlayer = ({ className, image, name, artist, ...otherProps }) =
                             />
                         </Button>
                     </div>
+
                 </div>
             </CardBody>
         </Card>
@@ -87,7 +79,7 @@ function PlayIcon(props) {
             strokeLinecap="round"
             strokeLinejoin="round"
         >
-            <polygon points="6 3 20 12 6 21 6 3" />
+            <polygon points="6 3 20 12 6 21 6 3"/>
         </svg>
-    );
+    )
 }
