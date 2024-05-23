@@ -8,7 +8,6 @@ import {useAuth} from "@/components/context/AuthContext.jsx";
 export const MusicPlayer= ({className,image,name,artist,id, ...otherProps}) => {
     const [liked, setLiked] = useState(false);
     const {isLoggedIn} = useAuth()
-
     return (
         <Card
             isBlurred
@@ -17,15 +16,15 @@ export const MusicPlayer= ({className,image,name,artist,id, ...otherProps}) => {
             {...otherProps}
         >
             <CardBody>
-                <div className="gap-6 md:gap-4 flex items-center">
-                    <div className="relative col-span-6 md:col-span-4 min-h-72 w-56">
+                <div className={`gap-6 md:gap-4 flex items-center`}>
+                    <div className="relative col-span-6 md:col-span-4 min-h-96 min-w-56">
                         <Image
                             alt="Album cover"
-                            className="object-cover mb-5"
+                            className="object-cover mb-5 min-h-96 min-w-96"
                             classNames={{
                                 base: "shadow-black/20",
                             }}
-                            height="90%"
+                            height="100%"
                             shadow="lg"
                             src={image}
                             width="100%"
